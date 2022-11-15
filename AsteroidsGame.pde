@@ -2,21 +2,14 @@ private Spaceship player = new Spaceship(4, new int[]{0, 2, 2, 0}, new int[]{0, 
 private GameState gameState = GameState.HOME;
 
 public void setup() {
-  size(500, 500);
+  size(1000, 1000);
 }
 public void draw() {
-  player.show();
-  
-  switch (gameState) {
-    case HOME:
-      System.out.println("Home");
-      break;
-    case EDIT:
-      break;
-    case PLAY:
-      break;
-    case GAME_OVER:
-      break;
+  if (gameState == GameState.HOME) {
+    player.show();
+  } else if (gameState == GameState.EDIT) {
+  } else if (gameState == GameState.PLAY) {
+  } else if (gameState == GameState.GAME_OVER) {
   }
 }
 
