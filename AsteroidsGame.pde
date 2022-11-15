@@ -2,7 +2,7 @@ private Spaceship player = new Spaceship(4, new int[]{0, 2, 2, 0}, new int[]{0, 
 //private GameState gameState = GameState.HOME;
 
 public void setup() {
-  size(750, 750);
+  size(700, 700);
 }
 public void draw() {
   //if (gameState == GameState.HOME) {
