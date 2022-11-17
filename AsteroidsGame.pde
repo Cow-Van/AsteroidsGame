@@ -11,7 +11,7 @@ public void draw() {
   if (gameState == 0) { // Home
   } else if (gameState == 1) { // Edit
   } else if (gameState == 2) { // Play
-    player.move();    
+    player.move();
     player.show();
   } else if (gameState == 3) { // Paused
   } else if (gameState == 4) { // Game Over
