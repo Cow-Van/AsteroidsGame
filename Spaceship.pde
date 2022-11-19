@@ -1,4 +1,6 @@
 class Spaceship extends Floater {   
+  private double decelerationRate = 1.5;
+  
   public Spaceship(int[] xCorners, int[] yCorners, int myColor) {
     if (xCorners.length != yCorners.length) {
       throw new IllegalArgumentException();
@@ -33,6 +35,22 @@ class Spaceship extends Floater {
     }
   }
   
+  public void setXSpeed(double xSpeed) {
+    myXspeed = xSpeed;
+  }
+  
+  public void setYSpeed(double ySpeed) {
+    myYspeed = ySpeed;
+  }
+  
+  public void setX(double x) {
+    myCenterX = x;
+  }
+  
+  public void setY(double y) {
+    myCenterY = y;
+  }
+  
   private void decelerate() {
     double angle = Math.atan(myYspeed / myXspeed);
     
@@ -45,13 +63,13 @@ class Spaceship extends Floater {
     }
     
     if (myXspeed > 0) {
-      myXspeed -= Math.cos(angle);
+      myXspeed -= Math.cos(angle) * decelerationRate;
       
      if (myXspeed < 0) {
        myXspeed = 0;
      }
     } else if (myXspeed < 0) {
-      myXspeed -= Math.cos(angle);
+      myXspeed -= Math.cos(angle) * decelerationRate;
       
       if (myXspeed > 0) {
         myXspeed = 0;
@@ -59,13 +77,13 @@ class Spaceship extends Floater {
     }
     
     if (myYspeed > 0) {
-      myYspeed -= Math.sin(angle);
+      myYspeed -= Math.sin(angle) * decelerationRate;
       
      if (myYspeed < 0) {
        myYspeed = 0;
      }
     } else if (myYspeed < 0) {
-      myYspeed -= Math.sin(angle) * ((myXspeed < 0) ? -1 : 1);
+      myYspeed -= Math.sin(angle) * ((myXspeed < 0) ? -1 : 1)  * decelerationRate;
       
       if (myYspeed > 0) {
         myYspeed = 0;
