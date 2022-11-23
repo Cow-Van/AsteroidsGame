@@ -1,5 +1,6 @@
 class Spaceship extends Floater {   
-  private double decelerationRate = 1.5;
+  private double decelerationRate = 1;
+  private double maxSpeed = 30;
   
   public Spaceship(int[] xCorners, int[] yCorners, int myColor) {
     if (xCorners.length != yCorners.length) {
