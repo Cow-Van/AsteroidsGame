@@ -5,7 +5,7 @@ private final AsteroidsFontText title = new AsteroidsFontText("asteroids", 10, t
 private final AsteroidsFontText subtitle = new AsteroidsFontText("press space to play", 4, true);
 
 private Spaceship player;
-private int gameState = 2; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
+private int gameState = 0; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
 
 public void setup() {
   size(700, 700);
@@ -22,6 +22,10 @@ public void draw() {
   if (gameState == 0) { // Home
     title.draw(350, 275);
     subtitle.draw(350, 375);
+    
+    if (keysPressed.contains(' ')) {
+      gameState = 2;
+    }
   } else if (gameState == 1) { // Edit
   } else if (gameState == 2) { // Play  
     player.move();
@@ -36,15 +40,9 @@ public void draw() {
 }
 
 public void keyPressed() {
-  if (key == ' ') {
-    player.setXSpeed(0);
-    player.setYSpeed(0);
-    player.turn(Math.random() * 360);
-    player.setX(Math.random() * width);
-    player.setY(Math.random() * height);
-  } else if (!keysPressed.contains(key)) {
-      keysPressed.add(key);
-    }
+  if (!keysPressed.contains(key)) {
+    keysPressed.add(key);
+  }
 }
 
 public void keyReleased() {

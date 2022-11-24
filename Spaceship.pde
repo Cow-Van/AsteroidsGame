@@ -1,8 +1,11 @@
 class Spaceship extends Floater {   
-  private double accelerationRate = 0.3;
-  private double decelerationRate = 0.3;
-  private double maxSpeed = 20;
-  private double turnRate = 3;
+  private final double accelerationRate = 0.3;
+  private final double decelerationRate = 0.3;
+  private final double maxSpeed = 20;
+  private final double turnRate = 3;
+  private final int hyperspaceCooldown = 20;
+  
+  private int hyperspaceTick = 20;
   
   public Spaceship(int[] xCorners, int[] yCorners, int myColor) {
     if (xCorners.length != yCorners.length) {
@@ -36,6 +39,13 @@ class Spaceship extends Floater {
         turn(-turnRate);
       } else if (pressedKey == 'd') {
         turn(turnRate);
+      } else if (pressedKey == ' ' && hyperspaceTick >= hyperspaceCooldown) {
+        myXspeed = 0;
+        myYspeed = 0;
+        turn(Math.random() * 360);
+        myCenterX = Math.random() * width;
+        myCenterY = Math.random() * height;
+        hyperspaceTick = 0;
       }
     }
     
@@ -44,22 +54,8 @@ class Spaceship extends Floater {
     if (!keysPressed.contains('w')) {
       decelerate();
     }
-  }
-  
-  public void setXSpeed(double xSpeed) {
-    myXspeed = xSpeed;
-  }
-  
-  public void setYSpeed(double ySpeed) {
-    myYspeed = ySpeed;
-  }
-  
-  public void setX(double x) {
-    myCenterX = x;
-  }
-  
-  public void setY(double y) {
-    myCenterY = y;
+    
+    hyperspaceTick++;
   }
   
   private void decelerate() {
