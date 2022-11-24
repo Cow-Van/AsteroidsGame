@@ -16,9 +16,7 @@ public void draw() {
   background(0);
   
   if (gameState == 0) { // Home
-    //textFont(createFont("asteroidsFont.ttf", 100));
-    //text("ABCDEFGHI\nJKLMNOP\n<>%*&\n!#?.,-_+=\nQRSTUVWXYZ\n1234567890", 50, 150);
-    (new AsteroidsFont("ABCDEF\nGHIJKL\nMNOPQR\nSTUVWX\nYZ1234\n67890", 10)).draw(50, 50);
+    (new AsteroidsFont("Asteroids", 10)).draw(50, 50);
   } else if (gameState == 1) { // Edit
   } else if (gameState == 2) { // Play  
     player.move();
