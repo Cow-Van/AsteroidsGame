@@ -5,7 +5,7 @@ class Spaceship extends Floater {
   private final double turnRate = 3;
   private final int hyperspaceCooldown = 20;
   
-  private int hyperspaceTick = 20;
+  private int hyperspaceTick = hyperspaceCooldown;
   
   public Spaceship(int[] xCorners, int[] yCorners, int myColor) {
     if (xCorners.length != yCorners.length) {

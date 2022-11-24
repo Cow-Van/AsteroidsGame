@@ -40,7 +40,7 @@ class AsteroidsFontText {
         for (int j = 0; j < coords.length; j++) {
           noStroke();
           fill(255);
-          rect((float) (x + xShift + i * (CHAR_WIDTH + (i > 0 ? xBuffer : 0)) * size + coords[j].getX() * size), (float) (y + k * (CHAR_HEIGHT + (k > 0 ? yBuffer : 0)) * size + coords[j].getY() * size), (float) size, (float) size);
+          rect((float) (x + xShift + i * (CHAR_WIDTH + (i > 0 ? xBuffer : 0)) * size + coords[j].getX() * size), (float) (y + k * (CHAR_HEIGHT + (k > 0 ? yBuffer : 0)) * size + coords[j].getY() * size), (float) size + 1, (float) size + 1);
         }
       }
     }
