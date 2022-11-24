@@ -1,7 +1,11 @@
+private final FontCharMap charMap = new FontCharMap();
+private final ArrayList<Character> keysPressed = new ArrayList();
+private final ArrayList<Star> stars = new ArrayList();
+private final AsteroidsFontText title = new AsteroidsFontText("asteroids", 10, true);
+private final AsteroidsFontText subtitle = new AsteroidsFontText("press space to play", 4, true);
+
 private Spaceship player;
-private ArrayList<Star> stars = new ArrayList();
 private int gameState = 0; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
-private ArrayList<Character> keysPressed = new ArrayList();
 
 public void setup() {
   size(700, 700);
@@ -16,7 +20,8 @@ public void draw() {
   background(0);
   
   if (gameState == 0) { // Home
-    (new AsteroidsFont("Asteroids", 10)).draw(50, 50);
+    title.draw(350, 275);
+    subtitle.draw(350, 375);
   } else if (gameState == 1) { // Edit
   } else if (gameState == 2) { // Play  
     player.move();
