@@ -1,6 +1,8 @@
 class Spaceship extends Floater {   
-  private double decelerationRate = 1;
-  private double maxSpeed = 30;
+  private double accelerationRate = 0.3;
+  private double decelerationRate = 0.3;
+  private double maxSpeed = 20;
+  private double turnRate = 3;
   
   public Spaceship(int[] xCorners, int[] yCorners, int myColor) {
     if (xCorners.length != yCorners.length) {
@@ -21,11 +23,19 @@ class Spaceship extends Floater {
       char pressedKey = keysPressed.get(i);
       
       if (pressedKey == 'w') {
-        accelerate(1);
+        double oldXspeed = myXspeed;
+        double oldYspeed = myYspeed;
+        
+        accelerate(accelerationRate);
+        
+        if (Math.sqrt(myXspeed * myXspeed + myYspeed * myYspeed) > maxSpeed) {
+          myXspeed = oldXspeed;
+          myYspeed = oldYspeed;
+        }
       } else if (pressedKey == 'a') {
-        turn(-1);
+        turn(-turnRate);
       } else if (pressedKey == 'd') {
-        turn(1);
+        turn(turnRate);
       }
     }
     

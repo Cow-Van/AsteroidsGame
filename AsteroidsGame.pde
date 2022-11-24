@@ -5,7 +5,7 @@ private final AsteroidsFontText title = new AsteroidsFontText("asteroids", 10, t
 private final AsteroidsFontText subtitle = new AsteroidsFontText("press space to play", 4, true);
 
 private Spaceship player;
-private int gameState = 0; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
+private int gameState = 2; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
 
 public void setup() {
   size(700, 700);
