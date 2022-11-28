@@ -1,8 +1,8 @@
 class AsteroidsFontText {
   private final double CHAR_WIDTH = 49;
   private final double CHAR_HEIGHT = 74;
-  private final double xBuffer = 10;
-  private final double yBuffer = 10;
+  private final double xBuffer;
+  private final double yBuffer;
   
   private String s;
   private double size;
@@ -10,16 +10,18 @@ class AsteroidsFontText {
   private double _width;
   private double _height;
   
-  public AsteroidsFontText(String s, double size, boolean centered) {
+  public AsteroidsFontText(String s, double size, boolean centered, double xBuffer, double yBuffer) {
     this.s = s.toLowerCase();
     this.size = size * 0.1;
     this.centered = centered;
+    this.xBuffer = xBuffer;
+    this.yBuffer = yBuffer;
     
     updateWidth();
     updateHeight();
   }
   
-  public void draw(double x, double y) {
+  public void show(double x, double y) {
     if (centered) {
       x -= getWidth() / 2;
       y -= getHeight() / 2;
