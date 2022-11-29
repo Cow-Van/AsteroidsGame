@@ -9,7 +9,7 @@ class Spaceship extends Floater {
   
   public Spaceship(int[] xCorners, int[] yCorners, int myColor) {
     if (xCorners.length != yCorners.length) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("xCorners length unequal to yCorners length");
     }
     
     this.corners = xCorners.length;
@@ -22,31 +22,27 @@ class Spaceship extends Floater {
   }
   
   public void move() {
-    for (int i = 0; i < keysPressed.size(); i++) {
-      char pressedKey = keysPressed.get(i);
+    if (keysPressed.contains('w')) {
+      double oldXspeed = myXspeed;
+      double oldYspeed = myYspeed;
       
-      if (pressedKey == 'w') {
-        double oldXspeed = myXspeed;
-        double oldYspeed = myYspeed;
-        
-        accelerate(accelerationRate);
-        
-        if (Math.sqrt(myXspeed * myXspeed + myYspeed * myYspeed) > maxSpeed) {
-          myXspeed = oldXspeed;
-          myYspeed = oldYspeed;
-        }
-      } else if (pressedKey == 'a') {
-        turn(-turnRate);
-      } else if (pressedKey == 'd') {
-        turn(turnRate);
-      } else if (pressedKey == ' ' && hyperspaceTick >= hyperspaceCooldown) {
-        myXspeed = 0;
-        myYspeed = 0;
-        turn(Math.random() * 360);
-        myCenterX = Math.random() * width;
-        myCenterY = Math.random() * height;
-        hyperspaceTick = 0;
+      accelerate(accelerationRate);
+      
+      if (Math.sqrt(myXspeed * myXspeed + myYspeed * myYspeed) > maxSpeed) {
+        myXspeed = oldXspeed;
+        myYspeed = oldYspeed;
       }
+    } else if (keysPressed.contains('a')) {
+      turn(-turnRate);
+    } else if (keysPressed.contains('d')) {
+      turn(turnRate);
+    } else if (keysPressed.contains(' ') && hyperspaceTick >= hyperspaceCooldown) {
+      myXspeed = 0;
+      myYspeed = 0;
+      turn(Math.random() * 360);
+      myCenterX = Math.random() * width;
+      myCenterY = Math.random() * height;
+      hyperspaceTick = 0;
     }
     
     super.move();

@@ -1,18 +1,21 @@
 class EditGrid {
   private final int _height = 21;
   private final int _width = 21;
-  private final double boxWidth = 10;
-  private final double boxHeight = 10;
+  private final double boxWidth = 25;
+  private final double boxHeight = 25;
   private final int gridColor = #FFFFFF;
-  private final float gridAlpha = 200;
+  private final double gridAlpha = 100;
+  private final int cursorColor = #FF0000;
+  private final double cursorAlpha = 255;
+  private final double cursorSize = 10;
   
   private final double x;
   private final double y;
   private final double xOffset;
   private final double yOffset;
   
-  private int cursorX = 0;
-  private int cursorY = 0;
+  private int cursorX = 21;
+  private int cursorY = 21;
   
   public EditGrid(double x, double y, boolean centered) {
     this.x = x;
@@ -32,14 +35,19 @@ class EditGrid {
   }
   
   public void show() {
-    stroke(gridColor, gridAlpha);
+    stroke(gridColor, (float) gridAlpha);
     
-    for (int i = 0; i < _width;  i++) {
-      line(x - xOffset + i * boxWidth, y - yOffset, 10, 10);
+    for (int i = 0; i <= _width;  i++) {
+      line((float) (x - xOffset + i * boxWidth), (float) (y - yOffset), (float) (x - xOffset + i * boxWidth), (float) (y - yOffset + _height * boxHeight));
     }
     
-    for (int i = 0; i < _height; i++) {
-      
+    for (int i = 0; i <= _height; i++) {
+      line((float) (x - xOffset), (float) (y - yOffset + i * boxHeight), (float) (x - xOffset + _width * boxWidth), (float) (y - yOffset + i * boxHeight));
     }
+    
+    noStroke();
+    fill(cursorColor, (float) cursorAlpha);
+    
+    ellipse((float) (x - xOffset + cursorX * boxWidth), (float) (y - yOffset + cursorY * boxHeight), (float) cursorSize, (float) cursorSize);
   }
 }
