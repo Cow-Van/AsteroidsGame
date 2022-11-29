@@ -31,6 +31,7 @@ public void draw() {
       gameState = 1;
     }
   } else if (gameState == 1) { // Edit
+    editGrid.update();
     editGrid.show();
   } else if (gameState == 2) { // Play  
     player.move();

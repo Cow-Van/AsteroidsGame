@@ -8,6 +8,7 @@ class EditGrid {
   private final int cursorColor = #FF0000;
   private final double cursorAlpha = 255;
   private final double cursorSize = 10;
+  private final int cursorCooldown = 8;
   
   private final double x;
   private final double y;
@@ -16,6 +17,10 @@ class EditGrid {
   
   private int cursorX = 21;
   private int cursorY = 21;
+  private int cursorCooldownTickUp = cursorCooldown;
+  private int cursorCooldownTickDown = cursorCooldown;
+  private int cursorCooldownTickLeft = cursorCooldown;
+  private int cursorCooldownTickRight= cursorCooldown;
   
   public EditGrid(double x, double y, boolean centered) {
     this.x = x;
@@ -31,7 +36,30 @@ class EditGrid {
   }
   
   public void update() {
+    if (codedKeysPressed.contains(UP) && cursorCooldownTickUp >= cursorCooldown && cursorY > 0) {
+      cursorCooldownTickUp = 0;
+      cursorY--;
+    }
     
+    if (codedKeysPressed.contains(DOWN) && cursorCooldownTickDown >= cursorCooldown && cursorY < _height) {
+      cursorCooldownTickDown = 0;
+      cursorY++;
+    }
+    
+    if (codedKeysPressed.contains(LEFT) && cursorCooldownTickLeft >= cursorCooldown && cursorX > 0) {
+      cursorCooldownTickLeft = 0;
+      cursorX--;
+    }
+    
+    if (codedKeysPressed.contains(RIGHT) && cursorCooldownTickRight >= cursorCooldown && cursorX < _width) {
+      cursorCooldownTickRight = 0;
+      cursorX++;
+    }
+    
+    cursorCooldownTickUp++;
+    cursorCooldownTickDown++;
+    cursorCooldownTickLeft++;
+    cursorCooldownTickRight++;
   }
   
   public void show() {
