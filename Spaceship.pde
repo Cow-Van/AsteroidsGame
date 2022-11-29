@@ -32,11 +32,17 @@ class Spaceship extends Floater {
         myXspeed = oldXspeed;
         myYspeed = oldYspeed;
       }
-    } else if (keysPressed.contains('a')) {
+    }
+    
+    if (keysPressed.contains('a')) {
       turn(-turnRate);
-    } else if (keysPressed.contains('d')) {
+    } 
+    
+    if (keysPressed.contains('d')) {
       turn(turnRate);
-    } else if (keysPressed.contains(' ') && hyperspaceTick >= hyperspaceCooldown) {
+    } 
+    
+    if (keysPressed.contains(' ') && hyperspaceTick >= hyperspaceCooldown) {
       myXspeed = 0;
       myYspeed = 0;
       turn(Math.random() * 360);
