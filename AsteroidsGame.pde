@@ -7,7 +7,7 @@ private final AsteroidsFontText subtitle = new AsteroidsFontText("press space to
 private final EditGrid editGrid = new EditGrid(350, 350, true);
 
 private Spaceship player;
-private int gameState = 1; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
+private int gameState = 0; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
 
 public void setup() {
   size(700, 700);
