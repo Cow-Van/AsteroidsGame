@@ -10,10 +10,16 @@ class EditGrid {
   private final double cursorAlpha = 255;
   private final double cursorSize = 10;
   private final int cursorCooldown = 9;
+  private final int cursorTogglePointCooldown = 10;
   private final int centerDotColor = #00FF00;
   private final double centerDotAlpha = 100;
   private final double centerDotSize = 15;
-  private final int cursorTogglePointCooldown = 10;
+  private final int shapeVertexColor = #FFFFFF;
+  private final double shapeVertexAlpha = 255;
+  private final double shapeVertexSize = 10;
+  private final int shapeLineColor = #FFFFFF;
+  private final double shapeLineAlpha = 255;
+  private final double shapeLineThickness = 5;
   
   private final double x;
   private final double y;
@@ -63,6 +69,8 @@ class EditGrid {
     }
     
     if (keysPressed.contains(' ') && cursorTogglePointCooldownTick >= cursorTogglePointCooldown) {
+      cursorTogglePointCooldownTick = 0;
+      
       if (remove(shape, new Coordinate(cursorX, cursorY)) == null) {
         shape.add(new Coordinate(cursorX, cursorY));
       }
@@ -90,6 +98,16 @@ class EditGrid {
     fill(centerDotColor, (float) centerDotAlpha);
     ellipse((float) (x - xOffset + (int) (_width / 2) * boxWidth), (float) (y - yOffset + (int) (_height / 2) * boxHeight), (float) centerDotSize, (float) centerDotSize);
     
+    stroke(shapeLineColor);
+    beginShape();
+    
+    for (int i = 0; i < shape.size(); i++) {
+      vertex((float) (x - xOffset + shape.get(i).getX() * boxWidth), (float) (y - yOffset + shape.get(i).getY() * boxHeight));
+    }
+    
+    endShape();
+    
+    noStroke();
     fill(cursorColor, (float) cursorAlpha);
     
     ellipse((float) (x - xOffset + cursorX * boxWidth), (float) (y - yOffset + cursorY * boxHeight), (float) cursorSize, (float) cursorSize);
