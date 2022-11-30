@@ -7,14 +7,18 @@ class Spaceship extends Floater {
   
   private int hyperspaceTick = hyperspaceCooldown;
   
-  public Spaceship(int[] xCorners, int[] yCorners, int myColor) {
-    if (xCorners.length != yCorners.length) {
-      throw new IllegalArgumentException("xCorners length unequal to yCorners length");
+  public Spaceship(Coordinate[] shape, int myColor) {
+    int[] _xCorners = new int[shape.length];
+    int[] _yCorners = new int[shape.length];
+    
+    for (int i  = 0; i < shape.length; i++) {
+      _xCorners[i] = shape[i].getX();
+      _yCorners[i] = shape[i].getY();
     }
     
-    this.corners = xCorners.length;
-    this.xCorners = xCorners;
-    this.yCorners = yCorners;
+    this.corners = shape.length;
+    this.xCorners = _xCorners;
+    this.yCorners = _yCorners;
     this.myColor = myColor;
     this.myCenterX = (double) width / 2;
     this.myCenterY = (double) height / 2;

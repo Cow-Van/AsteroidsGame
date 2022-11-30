@@ -1,6 +1,7 @@
 class EditGrid {
-  private final int _height = 21;
-  private final int _width = 21;
+  private final ArrayList<Coordinate> shape = new ArrayList();
+  private final int _width = 20;
+  private final int _height = 20;
   private final double boxWidth = 25;
   private final double boxHeight = 25;
   private final int gridColor = #FFFFFF;
@@ -8,19 +9,24 @@ class EditGrid {
   private final int cursorColor = #FF0000;
   private final double cursorAlpha = 255;
   private final double cursorSize = 10;
-  private final int cursorCooldown = 8;
+  private final int cursorCooldown = 9;
+  private final int centerDotColor = #00FF00;
+  private final double centerDotAlpha = 100;
+  private final double centerDotSize = 15;
+  private final int cursorTogglePointCooldown = 10;
   
   private final double x;
   private final double y;
   private final double xOffset;
   private final double yOffset;
   
-  private int cursorX = 21;
-  private int cursorY = 21;
+  private int cursorX = _width / 2;
+  private int cursorY = _height / 2;
   private int cursorCooldownTickUp = cursorCooldown;
   private int cursorCooldownTickDown = cursorCooldown;
   private int cursorCooldownTickLeft = cursorCooldown;
   private int cursorCooldownTickRight= cursorCooldown;
+  private int cursorTogglePointCooldownTick = cursorTogglePointCooldown;
   
   public EditGrid(double x, double y, boolean centered) {
     this.x = x;
@@ -56,10 +62,17 @@ class EditGrid {
       cursorX++;
     }
     
+    if (keysPressed.contains(' ') && cursorTogglePointCooldownTick >= cursorTogglePointCooldown) {
+      if (remove(shape, new Coordinate(cursorX, cursorY)) == null) {
+        shape.add(new Coordinate(cursorX, cursorY));
+      }
+    }
+    
     cursorCooldownTickUp++;
     cursorCooldownTickDown++;
     cursorCooldownTickLeft++;
     cursorCooldownTickRight++;
+    cursorTogglePointCooldownTick++;
   }
   
   public void show() {
@@ -74,8 +87,21 @@ class EditGrid {
     }
     
     noStroke();
+    fill(centerDotColor, (float) centerDotAlpha);
+    ellipse((float) (x - xOffset + (int) (_width / 2) * boxWidth), (float) (y - yOffset + (int) (_height / 2) * boxHeight), (float) centerDotSize, (float) centerDotSize);
+    
     fill(cursorColor, (float) cursorAlpha);
     
     ellipse((float) (x - xOffset + cursorX * boxWidth), (float) (y - yOffset + cursorY * boxHeight), (float) cursorSize, (float) cursorSize);
+  }
+  
+  private Coordinate remove(ArrayList<Coordinate> list, Coordinate coord) {
+    for (int i = 0; i < list.size(); i++) {
+      if (list.get(i).getX() == coord.getX() && list.get(i).getY() == coord.getY()) {
+        return list.remove(i);
+      }
+    }
+    
+    return null;
   }
 }

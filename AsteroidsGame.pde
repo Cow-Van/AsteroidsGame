@@ -11,7 +11,7 @@ private int gameState = 0; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
 
 public void setup() {
   size(700, 700);
-  player = new Spaceship(new int[]{15, -15, -15}, new int[]{0, -15, 15}, 255);
+  player = new Spaceship(new Coordinate[]{new Coordinate(15, 0), new Coordinate(-15, -15), new Coordinate(-15, 15)}, 255);
   
   for (int i = 0; i < 50; i++) {
     stars.add(new Star(Math.random() * width, Math.random() * height, 10, 255));
