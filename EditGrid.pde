@@ -8,18 +8,19 @@ class EditGrid {
   private final double gridAlpha = 100;
   private final int cursorColor = #FF0000;
   private final double cursorAlpha = 255;
-  private final double cursorSize = 10;
+  private final double cursorSize = 6;
   private final int cursorCooldown = 9;
-  private final int cursorTogglePointCooldown = 10;
+  private final int cursorTogglePointCooldown = 20;
   private final int centerDotColor = #00FF00;
   private final double centerDotAlpha = 100;
   private final double centerDotSize = 15;
   private final int shapeVertexColor = #FFFFFF;
   private final double shapeVertexAlpha = 255;
-  private final double shapeVertexSize = 10;
+  private final double shapeVertexSize = 8;
   private final int shapeLineColor = #FFFFFF;
   private final double shapeLineAlpha = 255;
-  private final double shapeLineThickness = 5;
+  private final double shapeLineThickness = 1;
+  private final int closeShapeCooldown = 13;
   
   private final double x;
   private final double y;
@@ -33,6 +34,8 @@ class EditGrid {
   private int cursorCooldownTickLeft = cursorCooldown;
   private int cursorCooldownTickRight= cursorCooldown;
   private int cursorTogglePointCooldownTick = cursorTogglePointCooldown;
+  private boolean closeShape = false;
+  private int closeShapeCooldownTick = closeShapeCooldown;
   
   public EditGrid(double x, double y, boolean centered) {
     this.x = x;
@@ -76,11 +79,18 @@ class EditGrid {
       }
     }
     
+    if (keysPressed.contains('\n') && closeShapeCooldownTick >= closeShapeCooldown) {
+      closeShapeCooldownTick = 0;
+      
+      closeShape = !closeShape;
+    }
+    
     cursorCooldownTickUp++;
     cursorCooldownTickDown++;
     cursorCooldownTickLeft++;
     cursorCooldownTickRight++;
     cursorTogglePointCooldownTick++;
+    closeShapeCooldownTick++;
   }
   
   public void show() {
@@ -98,16 +108,30 @@ class EditGrid {
     fill(centerDotColor, (float) centerDotAlpha);
     ellipse((float) (x - xOffset + (int) (_width / 2) * boxWidth), (float) (y - yOffset + (int) (_height / 2) * boxHeight), (float) centerDotSize, (float) centerDotSize);
     
-    stroke(shapeLineColor);
+    stroke(shapeLineColor, (float) shapeLineAlpha);
+    strokeWeight((float) shapeLineThickness);
+    fill(0, 0);
     beginShape();
     
     for (int i = 0; i < shape.size(); i++) {
-      vertex((float) (x - xOffset + shape.get(i).getX() * boxWidth), (float) (y - yOffset + shape.get(i).getY() * boxHeight));
+      vertex((float) (x - xOffset + shape.get(i).getX() * boxWidth), (float) (y - yOffset + shape.get(i).getY() * boxHeight));      
+    }
+    
+    if (closeShape && shape.size() > 0) {
+      fill(0, 0);
+      vertex((float) (x - xOffset + shape.get(0).getX() * boxWidth), (float) (y - yOffset + shape.get(0).getY() * boxHeight));
     }
     
     endShape();
+    strokeWeight(1);
     
     noStroke();
+    fill(shapeVertexColor, (float) shapeVertexAlpha);
+    
+    for (int i = 0; i < shape.size(); i++) {
+      ellipse((float) (x - xOffset + shape.get(i).getX() * boxWidth), (float) (y - yOffset + shape.get(i).getY() * boxHeight), (float) shapeVertexSize, (float) shapeVertexSize);
+    }
+    
     fill(cursorColor, (float) cursorAlpha);
     
     ellipse((float) (x - xOffset + cursorX * boxWidth), (float) (y - yOffset + cursorY * boxHeight), (float) cursorSize, (float) cursorSize);
