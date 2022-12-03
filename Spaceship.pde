@@ -64,6 +64,14 @@ class Spaceship extends Floater {
     hyperspaceTick++;
   }
   
+  public double getX() {
+    return myCenterX;
+  }
+  
+  public double getY() {
+    return myCenterY;
+  }
+  
   private void decelerate() {
     double angle = Math.atan(myYspeed / myXspeed);
     
