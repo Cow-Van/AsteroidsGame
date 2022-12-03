@@ -1,6 +1,6 @@
 class Asteroid extends Floater{
   private final double rotationRate = 1;
-  private final double spawnBUffer = 20;
+  private final double spawnBuffer = 20;
   
   public Asteroid(Coordinate[] shape, int myColor) {
     int[] _xCorners = new int[shape.length];
@@ -38,6 +38,4 @@ class Asteroid extends Floater{
     }
       
   }
-  
-  
 }
