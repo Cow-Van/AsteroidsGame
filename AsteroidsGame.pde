@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 private final FontCharMap charMap = new FontCharMap();
 private final ArrayList<Character> keysPressed = new ArrayList();
 private final ArrayList<Integer> codedKeysPressed = new ArrayList();
@@ -47,9 +49,19 @@ public void draw() {
       asteroids.add(new Asteroid(new Coordinate[]{new Coordinate(1 * 15, 4 * 15), new Coordinate(3 * 15, 2 * 15), new Coordinate(4 * 15, 0 * 15), new Coordinate(1 * 15, -2 * 15), new Coordinate(0 * 15, -4 * 15), new Coordinate(-2 * 15, -3 * 15), new Coordinate(-3 * 15, -1 * 15), new Coordinate(-1 * 15, 1 * 15), new Coordinate(-2 * 15, 3 * 15)}, 255));
     }
     
-    for (int i = 0; i < asteroids.size(); i++) {
-      asteroids.get(i).move();
-      asteroids.get(i).show();
+    Iterator<Asteroid> asteroidsIterator = asteroids.iterator();
+    
+    while(asteroidsIterator.hasNext()) {
+      Asteroid asteroid = asteroidsIterator.next();
+      asteroid.move();
+      
+      if (asteroid.toBeDeleted()) {
+        asteroids.remove(asteroid);
+        asteroidsIterator = asteroids.iterator();
+        continue;
+      }
+      
+      asteroid.show();
     }
     
     player.move();

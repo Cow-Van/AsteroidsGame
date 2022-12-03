@@ -4,6 +4,8 @@ class Asteroid extends Floater{
   private final double directionRandom = 60;
   private final double originalDirection;
   
+  private boolean deleted = false;
+  
   public Asteroid(Coordinate[] shape, int myColor) {
     int[] _xCorners = new int[shape.length];
     int[] _yCorners = new int[shape.length];
@@ -77,12 +79,17 @@ class Asteroid extends Floater{
     translate(-1 * (float) myCenterX, -1 * (float) myCenterY);
   }
   
-  public void move() {
+  public void move() {    
     myPointDirection += rotationRate * PI / 180;
     myCenterX += myXspeed;
     myCenterY += myYspeed;
     
-    if(myCenterX >width) {     
+    if (dist((float) myCenterX, (float) myCenterY, (float) player.getX(), (float) player.getY()) < 60) {
+      deleted = true;
+      return;
+    }
+    
+    if(myCenterX > width) {     
       myCenterX = 0;    
     } else if (myCenterX<0) {
       myCenterX = width;    
@@ -92,6 +99,10 @@ class Asteroid extends Floater{
       myCenterY = 0;    
     } else if (myCenterY < 0) {     
       myCenterY = height;    
-    } 
+    }
+  }
+  
+  public boolean toBeDeleted() {
+    return deleted;
   }
 }
