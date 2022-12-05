@@ -51,22 +51,22 @@ class EditGrid {
   }
   
   public void update() {
-    if (codedKeysPressed.contains(UP) && cursorCooldownTickUp >= cursorCooldown && cursorY > 0) {
+    if (keysPressed.contains('w') && cursorCooldownTickUp >= cursorCooldown && cursorY > 0) {
       cursorCooldownTickUp = 0;
       cursorY--;
     }
     
-    if (codedKeysPressed.contains(DOWN) && cursorCooldownTickDown >= cursorCooldown && cursorY < _height) {
+    if (keysPressed.contains('s') && cursorCooldownTickDown >= cursorCooldown && cursorY < _height) {
       cursorCooldownTickDown = 0;
       cursorY++;
     }
     
-    if (codedKeysPressed.contains(LEFT) && cursorCooldownTickLeft >= cursorCooldown && cursorX > 0) {
+    if (keysPressed.contains('a') && cursorCooldownTickLeft >= cursorCooldown && cursorX > 0) {
       cursorCooldownTickLeft = 0;
       cursorX--;
     }
     
-    if (codedKeysPressed.contains(RIGHT) && cursorCooldownTickRight >= cursorCooldown && cursorX < _width) {
+    if (keysPressed.contains('d') && cursorCooldownTickRight >= cursorCooldown && cursorX < _width) {
       cursorCooldownTickRight = 0;
       cursorX++;
     }
