@@ -11,6 +11,7 @@ private final EditGrid editGrid = new EditGrid(350, 350, true);
 
 private Spaceship player;
 private int gameState = 0; // 0: Home, 1: Edit, 2: Play, 3: Paused 4: Game Over
+private boolean escapePressed = false;
 
 public void setup() {
   size(700, 700);
@@ -77,7 +78,10 @@ public void keyPressed() {
       codedKeysPressed.add(keyCode);
     }
   } else {
-    if (!keysPressed.contains(key)) {
+    if (key == 27) {
+      escapePressed = true;
+      key = 0;
+    } else if (!keysPressed.contains(key)) {
         keysPressed.add(key);
     }
   }
@@ -87,6 +91,11 @@ public void keyReleased() {
   if (key == CODED) {
     codedKeysPressed.remove((Object) keyCode);
   } else {
-    keysPressed.remove((Object) key);
+    if (key == 27) {
+      escapePressed = false;
+      key = 0;
+    } else {
+      keysPressed.remove((Object) key);
+    }
   }
 }

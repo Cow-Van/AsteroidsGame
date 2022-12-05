@@ -36,6 +36,7 @@ class EditGrid {
   private int cursorTogglePointCooldownTick = cursorTogglePointCooldown;
   private boolean closeShape = false;
   private int closeShapeCooldownTick = closeShapeCooldown;
+  private boolean exitPrompt = false;
   
   public EditGrid(double x, double y, boolean centered) {
     this.x = x;
@@ -51,6 +52,15 @@ class EditGrid {
   }
   
   public void update() {
+    if (escapePressed) {
+      escapePressed = false;
+      exitPrompt = !exitPrompt;
+    }
+    
+    if (exitPrompt) {
+      
+    }
+    
     if (keysPressed.contains('w') && cursorCooldownTickUp >= cursorCooldown && cursorY > 0) {
       cursorCooldownTickUp = 0;
       cursorY--;
