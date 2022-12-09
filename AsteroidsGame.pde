@@ -5,6 +5,7 @@ private final ArrayList<Character> keysPressed = new ArrayList();
 private final ArrayList<Integer> codedKeysPressed = new ArrayList();
 private final ArrayList<Star> stars = new ArrayList();
 private final ArrayList<Asteroid> asteroids = new ArrayList();
+private final ArrayList<Bullet> bullets = new ArrayList();
 private final AsteroidsFontText title = new AsteroidsFontText("asteroids", 10, true, 10, 10);
 private final AsteroidsFontText subtitle = new AsteroidsFontText("press space to play\npress e to edit", 4, true, 15, 30);
 private final EditGrid editGrid = new EditGrid(350, 350, true);
@@ -63,6 +64,11 @@ public void draw() {
       }
       
       asteroid.show();
+    }
+    
+    for (int i = 0; i < bullets.size(); i++) {
+      bullets.get(i).move();
+      bullets.get(i).show();
     }
     
     player.move();

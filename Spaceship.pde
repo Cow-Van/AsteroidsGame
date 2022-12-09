@@ -46,13 +46,17 @@ class Spaceship extends Floater {
       turn(turnRate);
     } 
     
-    if (keysPressed.contains(' ') && hyperspaceTick >= hyperspaceCooldown) {
+    if (keysPressed.contains('e') && hyperspaceTick >= hyperspaceCooldown) {
       myXspeed = 0;
       myYspeed = 0;
       turn(Math.random() * 360);
       myCenterX = Math.random() * width;
       myCenterY = Math.random() * height;
       hyperspaceTick = 0;
+    }
+    
+    if (keysPressed.contains(' ')) {
+      bullets.add(new Bullet());
     }
     
     super.move();
@@ -70,6 +74,10 @@ class Spaceship extends Floater {
   
   public double getY() {
     return myCenterY;
+  }
+  
+  public double getDirection() {
+    return myPointDirection;
   }
   
   private void decelerate() {

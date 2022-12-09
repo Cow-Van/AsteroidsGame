@@ -1,4 +1,4 @@
-class Asteroid extends Floater{
+class Asteroid extends Floater {
   private final double rotationRate = 60;
   private final double spawnBuffer = 50;
   private final double directionRandom = 60;
