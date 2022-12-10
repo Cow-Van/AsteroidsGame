@@ -36,7 +36,6 @@ class EditGrid {
   private int cursorTogglePointCooldownTick = cursorTogglePointCooldown;
   private boolean closeShape = false;
   private int closeShapeCooldownTick = closeShapeCooldown;
-  private boolean exitPrompt = false;
   
   public EditGrid(double x, double y, boolean centered) {
     this.x = x;
@@ -52,13 +51,9 @@ class EditGrid {
   }
   
   public void update() {
-    if (escapePressed) {
-      escapePressed = false;
-      exitPrompt = !exitPrompt;
-    }
-    
-    if (exitPrompt) {
-      
+    if (keysPressed.contains('m') && (closeShape || shape.size() < 3)) {
+      gameState = 0;
+      return;
     }
     
     if (keysPressed.contains('w') && cursorCooldownTickUp >= cursorCooldown && cursorY > 0) {
@@ -121,6 +116,7 @@ class EditGrid {
     stroke(shapeLineColor, (float) shapeLineAlpha);
     strokeWeight((float) shapeLineThickness);
     fill(0, 0);
+    
     beginShape();
     
     for (int i = 0; i < shape.size(); i++) {
@@ -128,11 +124,11 @@ class EditGrid {
     }
     
     if (closeShape && shape.size() > 0) {
-      fill(0, 0);
+      fill(255, 200);
       vertex((float) (x - xOffset + shape.get(0).getX() * boxWidth), (float) (y - yOffset + shape.get(0).getY() * boxHeight));
     }
     
-    endShape();
+    endShape((closeShape) ? CLOSE : OPEN);
     strokeWeight(1);
     
     noStroke();
@@ -145,6 +141,16 @@ class EditGrid {
     fill(cursorColor, (float) cursorAlpha);
     
     ellipse((float) (x - xOffset + cursorX * boxWidth), (float) (y - yOffset + cursorY * boxHeight), (float) cursorSize, (float) cursorSize);
+  }
+  
+  public Coordinate[] getShape() {
+    Coordinate[] coords = new Coordinate[shape.size()];
+    
+    for (int i = 0; i < coords.length; i++) {
+      coords[i] = new Coordinate(shape.get(i).getX() * 5, shape.get(i).getY() * 5);
+    }
+    
+    return coords;
   }
   
   private Coordinate remove(ArrayList<Coordinate> list, Coordinate coord) {

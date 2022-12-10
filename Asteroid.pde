@@ -1,8 +1,9 @@
 class Asteroid extends Floater {
-  private final double rotationRate = 60;
-  private final double spawnBuffer = 50;
+  private final double originalRotationRate = 60;
+  private final double spawnBuffer = 100;
   private final double directionRandom = 60;
   private final double originalDirection;
+  private final double rotationRate;
   
   private boolean deleted = false;
   
@@ -28,6 +29,7 @@ class Asteroid extends Floater {
       this.myCenterY = Math.random() * height;
     }
     
+    this.rotationRate = originalRotationRate + (Math.random() * 20 / 10);
     double deltaX = myCenterX - (double) width / 2;
     double deltaY = myCenterY - (double) height / 2;
     double directionVariance = Math.random() * directionRandom - (double) directionRandom / 2;
@@ -53,8 +55,11 @@ class Asteroid extends Floater {
     }
     
     this.myPointDirection = this.originalDirection;
-    this.myXspeed = Math.cos(this.originalDirection * Math.PI / 180);
-    this.myYspeed = Math.sin(this.originalDirection * Math.PI / 180);
+    
+    double speedMultiplier = Math.random() * 2 - 0.5;
+    
+    this.myXspeed = Math.cos(this.originalDirection * Math.PI / 180) * speedMultiplier;
+    this.myYspeed = Math.sin(this.originalDirection * Math.PI / 180) * speedMultiplier;
   }
   
   public void show() {             
@@ -84,25 +89,30 @@ class Asteroid extends Floater {
     myCenterX += myXspeed;
     myCenterY += myYspeed;
     
-    if (dist((float) myCenterX, (float) myCenterY, (float) player.getX(), (float) player.getY()) < 60) {
+    if (dist((float) myCenterX, (float) myCenterY, (float) player.getX(), (float) player.getY()) < 70) {
       deleted = true;
+      gameState = 4;
       return;
     }
     
-    if(myCenterX > width) {     
-      myCenterX = 0;    
-    } else if (myCenterX<0) {
-      myCenterX = width;    
-    }   
-    
-    if(myCenterY > height) {    
-      myCenterY = 0;    
-    } else if (myCenterY < 0) {     
-      myCenterY = height;    
+    if (myCenterX < -spawnBuffer - 100 || myCenterX > width + spawnBuffer + 100 || myCenterY < -spawnBuffer - 100 || myCenterY > height + spawnBuffer + 100) {
+      deleted = true;
     }
   }
   
-  public boolean toBeDeleted() {
+  public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
+  }
+  
+  public boolean isDeleted() {
     return deleted;
+  }
+  
+  public double getX() {
+    return myCenterX;
+  }
+  
+  public double getY() {
+    return myCenterY;
   }
 }

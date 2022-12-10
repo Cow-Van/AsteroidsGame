@@ -4,8 +4,10 @@ class Spaceship extends Floater {
   private final double maxSpeed = 20;
   private final double turnRate = 3;
   private final int hyperspaceCooldown = 20;
+  private final int bulletCooldown = 20;
   
   private int hyperspaceTick = hyperspaceCooldown;
+  private int bulletCooldownTick = bulletCooldown;
   
   public Spaceship(Coordinate[] shape, int myColor) {
     int[] _xCorners = new int[shape.length];
@@ -55,7 +57,8 @@ class Spaceship extends Floater {
       hyperspaceTick = 0;
     }
     
-    if (keysPressed.contains(' ')) {
+    if (keysPressed.contains(' ') && bulletCooldown <= bulletCooldownTick) {
+      bulletCooldownTick = 0;
       bullets.add(new Bullet());
     }
     
@@ -66,6 +69,7 @@ class Spaceship extends Floater {
     }
     
     hyperspaceTick++;
+    bulletCooldownTick++;
   }
   
   public double getX() {
